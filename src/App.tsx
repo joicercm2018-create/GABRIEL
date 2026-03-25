@@ -54,60 +54,67 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#2D241E] font-sans">
       {/* Hero Section */}
-      <header className="relative min-h-screen flex flex-col justify-center px-6 py-20 bg-[#FDFBF7]">
-        <div className="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
+      <header className="relative min-h-screen flex flex-col justify-center px-6 py-20 bg-[#FDFBF7] overflow-hidden">
+        <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row gap-12 items-center">
           <motion.div 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="flex-1"
           >
-            <h1 className="text-6xl md:text-8xl font-black leading-[0.8] tracking-tighter text-[#2D241E] uppercase mb-8 font-heading">
-              Gabriel<br/>Vieira
+            <h1 className="text-7xl md:text-9xl font-black leading-[0.85] tracking-tighter text-[#2D241E] uppercase mb-8">
+              Gabriel<br/><span className="text-[#A67C52]">Vieira</span>
             </h1>
-            <p className="text-xl md:text-2xl text-[#8B5E3C] mb-8 font-light">
-              Serviços gerais, motorista A/B e acabamento em móveis rústicos (marcenaria)
+            <p className="text-xl md:text-2xl text-[#8B5E3C] mb-12 font-light max-w-lg">
+              Serviços gerais, motorista A/B e marcenaria rústica. Versatilidade e compromisso com resultados.
             </p>
-            <a href="https://wa.me/557381660570" className="inline-flex items-center gap-3 bg-[#8B5E3C] text-white font-bold py-4 px-8 rounded-full hover:bg-[#6B4A30] transition">
-              <MessageCircle size={20} /> Entre em contato (WhatsApp)
+            <a href="https://wa.me/557381660570" className="inline-flex items-center gap-3 bg-[#2D241E] text-white font-bold py-4 px-8 rounded-full hover:bg-[#4A3B30] transition shadow-lg">
+              <MessageCircle size={20} /> Entre em contato
             </a>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
+            className="flex-1 flex justify-center md:justify-end"
           >
-            <img src="https://i.imgur.com/CN74MpI.jpeg" alt="Gabriel Vieira" className="rounded-3xl shadow-2xl w-full h-auto object-cover aspect-[4/5]" />
+            <img src="https://i.imgur.com/CN74MpI.jpeg" alt="Gabriel Vieira" className="rounded-2xl shadow-2xl w-full max-w-md h-auto object-cover aspect-[3/4] rotate-3 hover:rotate-0 transition duration-500" />
           </motion.div>
         </div>
       </header>
 
       {/* About Section */}
-      <section className="py-32 px-6 bg-[#F2EBE5] text-[#2D241E]">
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto"
-        >
-          <h2 className="text-sm uppercase tracking-[0.2em] mb-8 opacity-60 font-heading">Sobre</h2>
-          <p className="text-3xl md:text-4xl font-light leading-tight mb-8">
-            Profissional versátil e dedicado com mais de sete anos de experiência em diferentes segmentos: vendas, transporte, operação de máquinas, obras e marcenaria rústica. Ibicaraí e toda região.
+      <section className="py-32 px-6 bg-[#2D241E] text-[#FDFBF7]">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-sm uppercase tracking-[0.2em] mb-8 opacity-60">Sobre</h2>
+          <p className="text-4xl md:text-5xl font-light leading-tight mb-12">
+            Profissional versátil com mais de <span className="text-[#A67C52] font-medium">7 anos de experiência</span>. Transformo desafios em resultados através de dedicação, técnica e um olhar atento aos detalhes.
           </p>
-          <div className="flex items-center gap-4 text-lg font-medium opacity-70">
-            <MapPin size={24} /> Ibicaraí e região / Bahia
+          <div className="flex items-center gap-4 text-lg font-medium opacity-70 bg-[#3D342E] p-6 rounded-2xl inline-flex">
+            <MapPin size={24} className="text-[#A67C52]" /> Ibicaraí e região / Bahia
           </div>
-        </motion.div>
+        </div>
       </section>
 
-      {/* Specialties Section */}
+      {/* Specialties Section (Bento Grid) */}
       <section className="py-32 px-6 bg-[#FDFBF7]">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-sm uppercase tracking-[0.2em] mb-16 opacity-60 text-[#2D241E] font-heading">Especialidades</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-[#D6D3CD]">
-            {SPECIALTIES.map((s) => (
-              <button key={s.title} onClick={() => setSelectedSpecialty(s)} className="text-left w-full">
-                <SpecialtyCard {...s} />
-              </button>
+          <h2 className="text-sm uppercase tracking-[0.2em] mb-16 opacity-60 text-[#2D241E]">Especialidades</h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[250px]">
+            {SPECIALTIES.map((s, i) => (
+              <motion.button 
+                key={s.title} 
+                onClick={() => setSelectedSpecialty(s)} 
+                whileHover={{ scale: 1.02 }}
+                className={`group relative overflow-hidden rounded-3xl p-8 text-left transition-all ${
+                  i === 0 ? 'md:col-span-2 md:row-span-2 bg-[#2D241E] text-white' : 
+                  i === 3 || i === 4 ? 'md:col-span-2 bg-[#F2EBE5]' : 'bg-[#EAE6E1]'
+                }`}
+              >
+                <div className={`mb-4 ${i === 0 ? 'text-[#A67C52]' : 'text-[#8B5E3C]'}`}>{s.icon}</div>
+                <h3 className="text-2xl font-bold mb-2">{s.title}</h3>
+                <p className={`opacity-70 ${i === 0 ? 'text-gray-300' : 'text-[#2D241E]'}`}>{s.description}</p>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -125,9 +132,7 @@ export default function App() {
             <a href="https://www.instagram.com/gabriel_vieiramr?igsh=anRkb2x5bXB2Mzl3" className="flex items-center gap-2 hover:text-[#A67C52] transition"><Instagram /> Instagram</a>
           </div>
           
-          <a href="/curriculo.html" target="_blank" className="inline-flex items-center gap-3 bg-[#A67C52] text-white font-bold py-4 px-8 rounded-full hover:bg-[#8B5E3C] transition">
-            <Download size={20} /> ACESSE MEU CURRÍCULO
-          </a>
+          {/* Removed resume link */}
         </div>
       </section>
 
@@ -162,12 +167,4 @@ export default function App() {
   );
 }
 
-function SpecialtyCard({ icon, title, description }: { icon: React.ReactNode, title: string, description: string }) {
-  return (
-    <div className="bg-[#FDFBF7] p-12 text-[#2D241E] transition-colors hover:bg-[#F2EBE5] h-full">
-      <div className="mb-8 text-[#8B5E3C]">{icon}</div>
-      <h3 className="text-2xl font-bold mb-4 font-heading">{title}</h3>
-      <p className="opacity-70 leading-relaxed">{description}</p>
-    </div>
-  );
-}
+
